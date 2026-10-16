@@ -1,6 +1,6 @@
 from chatbot.client import ask, create_client
 from chatbot.constants import EXIT_COMMANDS
-from chatbot.display import print_summary, print_usage
+from chatbot.display import print_summary
 from chatbot.usage import TokenUsage
 
 
@@ -25,9 +25,7 @@ def main():
         print(response.output_text)
         previous_response_id = response.id
 
-        usage = TokenUsage.from_response(response)
-        total.add(usage)
-        print_usage(usage)
+        total.add(TokenUsage.from_response(response))
 
     print_summary(total)
     print("Bye!")

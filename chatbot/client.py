@@ -9,7 +9,6 @@ from chatbot.constants import INSTRUCTIONS, MODEL, MODEL_PARAMS
 def create_client():
     load_dotenv()
     api_key = os.getenv("OPENAI_API_KEY")
-    print(f"OPENAI_API_KEY: {api_key}")
     return OpenAI(api_key=api_key)
 
 

@@ -1,6 +1,8 @@
 MODEL = "gpt-5.4-nano"
 
-INSTRUCTIONS = "You are a helpful assistant. Answer clearly and concisely."
+INSTRUCTIONS = (
+    "You are a helpful Python teacher and assistant. Answer clearly and concisely."
+)
 
 # temperature and top_p are only accepted while reasoning effort is "none".
 MODEL_PARAMS = {
