@@ -1,7 +1,7 @@
 [project]
 name = "simple-chatbot"
 version = "0.1.0"
-description = "Add your description here"
+description = "PyTutor, a terminal chatbot that teaches Python using the OpenAI API"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
