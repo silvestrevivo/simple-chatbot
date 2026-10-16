@@ -1,28 +1,36 @@
-import os
-
-from dotenv import load_dotenv
-from openai import OpenAI
+from chatbot.client import ask, create_client
+from chatbot.constants import EXIT_COMMANDS
+from chatbot.display import print_summary, print_usage
+from chatbot.usage import TokenUsage
 
 
 def main():
-    load_dotenv()
-    api_key = os.getenv("OPENAI_API_KEY")
-    print(f"OPENAI_API_KEY: {api_key}")
+    client = create_client()
+    previous_response_id = None
+    total = TokenUsage()
+    print("Type 'exit' to quit.")
 
-    client = OpenAI(api_key=api_key)
+    while True:
+        try:
+            question = input("\nWhat do you want to know? ").strip()
+        except (EOFError, KeyboardInterrupt):
+            break
 
-    question = input("What do you want to know? ")
-    response = client.responses.create(
-        model="gpt-5.4-nano",
-        instructions="You are a helpful assistant. Answer clearly and concisely.",
-        input=question,
-        reasoning={"effort": "none"},
-        temperature=0.7,
-        top_p=1.0,
-        text={"verbosity": "low"},
-        max_output_tokens=500,
-    )
-    print(response.output_text)
+        if question.lower() in EXIT_COMMANDS:
+            break
+        if not question:
+            continue
+
+        response = ask(client, question, previous_response_id)
+        print(response.output_text)
+        previous_response_id = response.id
+
+        usage = TokenUsage.from_response(response)
+        total.add(usage)
+        print_usage(usage)
+
+    print_summary(total)
+    print("Bye!")
 
 
 if __name__ == "__main__":
