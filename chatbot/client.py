@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from chatbot.constants import INSTRUCTIONS, MODEL, MODEL_PARAMS
+from chatbot.constants import INSTRUCTIONS, LEARNER_MESSAGE_TEMPLATE, MODEL, MODEL_PARAMS
 
 
 def create_client():
@@ -16,7 +16,7 @@ def ask(client, question, previous_response_id=None):
     return client.responses.create(
         model=MODEL,
         instructions=INSTRUCTIONS,
-        input=question,
+        input=LEARNER_MESSAGE_TEMPLATE.format(question=question),
         previous_response_id=previous_response_id,
         **MODEL_PARAMS,
     )

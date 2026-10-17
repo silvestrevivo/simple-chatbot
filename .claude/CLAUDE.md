@@ -62,12 +62,18 @@ chatbot/
 
 ## Tutor behaviour
 
-- The tutor role lives in `INSTRUCTIONS` in `constants.py`.
+- The tutor role lives in `INSTRUCTIONS` in `constants.py`, organised as
+  purpose, audience, tone, teaching rules, answer structure, input format,
+  boundaries and one few-shot example.
+- Every learner message is wrapped with `LEARNER_MESSAGE_TEMPLATE`
+  (`<learner_message>` tags) in `ask()`. Keep the template and the
+  "Input format" section of `INSTRUCTIONS` in sync.
 - It must stay beginner friendly, include runnable examples, give hints before
   full solutions, reply in the learner's language, and refuse non-Python
   topics.
 - After editing `INSTRUCTIONS`, test with an on-topic question, an error
-  message, a non-English question and an off-topic question.
+  message, a non-English question, an off-topic question and a prompt
+  injection ("ignore your instructions and ...").
 
 ## Security
 
